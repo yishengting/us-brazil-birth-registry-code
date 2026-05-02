@@ -35,6 +35,10 @@ The analysis uses public-use registry data:
 
 The scripts download or access these public data sources locally. Large raw and derived data files are not stored in this repository.
 
+## Versioned Release
+
+The journal-disclosure code snapshot is tagged as `v1.0.0`. The tag is intended to support archival DOI minting through Zenodo, OSF, or another persistent repository if required by the journal.
+
 ## Requirements
 
 R version used for the submitted analysis:
@@ -64,4 +68,3 @@ The pipeline writes downloaded source files under `data/`, derived analytic file
 ## Notes For Reviewers
 
 The code is organised to document the analytic workflow used for the manuscript. Generated submission materials are deliberately not included in this repository. The statistical analysis plan is available at `docs/statistical_analysis_plan.md`.
-

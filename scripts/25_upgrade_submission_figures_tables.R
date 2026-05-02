@@ -392,8 +392,8 @@ table_titles <- list(
   table1 = "Table 1. Baseline characteristics of singleton births by country",
   table2 = "Table 2. Annual outcome rates among singleton births by country",
   table3 = "Table 3. Association between maternal risk score and primary outcomes among singleton births",
-  table4 = "Table 4. Association between singleton maternal risk profile and primary outcomes",
-  table5 = "Table 5. Adjusted absolute risks and risk differences by singleton maternal risk profile"
+  table4 = "Table 4. Association between singleton registry risk-marker profile and primary outcomes",
+  table5 = "Table 5. Adjusted absolute risks and risk differences by singleton registry risk-marker profile"
 )
 table_objects <- list(
   table1 = table1_display,

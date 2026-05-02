@@ -8,11 +8,11 @@ Repeated cross-sectional individual-level registry analysis of public-use live b
 
 The primary analysis is restricted to singleton live births. Multiple births are excluded from the primary risk-score and risk-profile analyses because multiple gestation is a dominant obstetric pathway for preterm birth and low birth weight.
 
-Outcome-specific complete records are used for adjusted models. Implausible gestational age (<22 or >44 weeks) and birth weight (<300 or >7000 g) values are set to missing.
+Outcome-specific complete records are used for adjusted models. Implausible gestational age (<22 or >44 weeks) and birth weight (<300 or >7000 g) values are set to missing. Multiple imputation is not used because unknown coding and source-variable meaning are not fully symmetric across countries, which could introduce less interpretable cross-national measurement error.
 
 ## Exposures
 
-Three risk domains are used to build the singleton maternal risk-marker score and mutually exclusive risk profiles:
+Three risk domains are used to build the singleton registry risk-marker score and mutually exclusive registry risk-marker profiles:
 
 - Maternal age risk: age <20 or >=35 years.
 - Low recorded prenatal-visit count marker: <4 recorded prenatal visits.
