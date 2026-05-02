@@ -260,13 +260,13 @@ forest_panel <- ggplot(score_forest, aes(estimate, y_plot, xmin = conf.low, xmax
     plot.margin = margin(5, 4, 5, 4)
   )
 value_panel <- ggplot(score_text) +
-  annotate("text", x = 0.03, y = 7.80, label = "Brazil aRR (95% CI)", hjust = 0, fontface = "bold", size = 2.65, color = "#111827") +
-  annotate("text", x = 0.37, y = 7.80, label = "US aRR (95% CI)", hjust = 0, fontface = "bold", size = 2.65, color = "#111827") +
-  annotate("text", x = 0.68, y = 7.80, label = "Ratio of aRRs\n(US/Brazil)", hjust = 0, fontface = "bold", size = 2.55, lineheight = 0.9, color = "#111827") +
+  annotate("text", x = 0.03, y = 7.72, label = "Brazil aRR (95% CI)", hjust = 0, fontface = "bold", size = 2.65, color = "#111827") +
+  annotate("text", x = 0.36, y = 7.72, label = "US aRR (95% CI)", hjust = 0, fontface = "bold", size = 2.65, color = "#111827") +
+  annotate("text", x = 0.63, y = 7.72, label = "Ratio of aRRs\n(US/Brazil)", hjust = 0, fontface = "bold", size = 2.45, lineheight = 0.88, color = "#111827") +
   geom_text(aes(x = 0.03, y = y, label = Brazil), hjust = 0, size = 2.65, color = "#1F2937") +
-  geom_text(aes(x = 0.37, y = y, label = `United States`), hjust = 0, size = 2.65, color = "#1F2937") +
-  geom_text(aes(x = 0.68, y = y, label = ratio_label), hjust = 0, size = 2.65, color = "#1F2937") +
-  coord_cartesian(xlim = c(0, 1), ylim = ylims, expand = FALSE) +
+  geom_text(aes(x = 0.36, y = y, label = `United States`), hjust = 0, size = 2.65, color = "#1F2937") +
+  geom_text(aes(x = 0.63, y = y, label = ratio_label), hjust = 0, size = 2.65, color = "#1F2937") +
+  coord_cartesian(xlim = c(0, 1.12), ylim = c(1.95, 8.05), expand = FALSE) +
   theme_void(base_family = "Helvetica") +
   theme(plot.margin = margin(5, 2, 28, 2))
 score_plot <- label_panel + forest_panel + value_panel +
