@@ -250,7 +250,7 @@ missingness <- singleton |>
     gestational_age_missing_pct = mean(is.na(gestational_age)) * 100,
     birth_weight_missing_pct = mean(is.na(birth_weight)) * 100,
     education_unknown_pct = mean(maternal_education_cat == "unknown" | is.na(maternal_education_cat)) * 100,
-    prenatal_care_unknown_pct = mean(prenatal_care_cat == "unknown" | is.na(prenatal_care_cat)) * 100,
+    prenatal_visit_count_unknown_pct = mean(prenatal_care_cat == "unknown" | is.na(prenatal_care_cat)) * 100,
     delivery_mode_unknown_pct = mean(delivery_mode == "unknown" | is.na(delivery_mode)) * 100,
     apgar5_missing_pct = mean(is.na(apgar5)) * 100
   ) |>

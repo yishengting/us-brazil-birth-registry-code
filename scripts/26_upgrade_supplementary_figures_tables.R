@@ -247,13 +247,13 @@ table_notes <- c(
   "Supplementary_Table_8_age_education_only_sensitivity.csv" = "Prenatal visit count was excluded from this score definition to evaluate robustness to gestational-length-related bias.",
   "Supplementary_Table_9_risk_profile_prevalence.csv" = "Percentages were calculated among profile-classifiable singleton births with non-missing maternal age, prenatal visit-count category, and maternal education fields. Denominators therefore differ from the full singleton cohort.",
   "Supplementary_Table_10_cross_national_standardization.csv" = "Descriptive standardisation only. Standardised rate = sum(profile prevalence x profile-specific adjusted risk). This analysis is descriptive and not interpreted causally.",
-  "Supplementary_Table_11_additional_sensitivity.csv" = "Age-restricted models used the age-plus-education score among births to mothers aged >=25 years. Period-specific models used the main 3-domain score in 2017-2019, 2020-2021, and 2022-2024. Excluding-2024 models used the main 3-domain score after removing births from the most recent registry year.",
+  "Supplementary_Table_11_additional_sensitivity.csv" = "Age-restricted models used the age-plus-education score among births to mothers aged >=25 years. Period-specific models used the main 3-domain score in 2017-2019, 2020-2021, and 2022-2024. Models excluding 2024 births used the main 3-domain score after removing births from the most recent registry year.",
   "Supplementary_Table_12_complete_case_derivation.csv" = "Steps are sequential within country and outcome. Profile-classifiable records required non-missing maternal age risk, education domain, and prenatal visit-count domain. Model covariates were parity or birth order and newborn sex.",
   "Supplementary_Table_13_registry_algorithms.csv" = "Rules are provided for reproducibility and RECORD-style reporting. Prenatal visit count is interpreted as a registry risk marker and not as a causal care-quality exposure. Grouped covariate-pattern counts document exact categorical aggregation used for modified Poisson models.",
   "Supplementary_Table_14_risk_profile_interaction_p_values.csv" = "P values correspond to the pooled risk profile by country interaction terms shown as ratios of aRRs in Supplementary Table 17. Main-text interpretation emphasises ratio estimates and 95% confidence intervals."
 )
 column_maps <- list(
-  "Supplementary_Table_1_missingness.csv" = c(country = "Country", birth_year = "Birth year", singleton_births = "Singleton births, n", gestational_age_missing_pct = "Gestational age missing, %", birth_weight_missing_pct = "Birth weight missing, %", education_unknown_pct = "Education unknown, %", prenatal_care_unknown_pct = "Prenatal visit count unknown, %", delivery_mode_unknown_pct = "Delivery mode unknown, %", apgar5_missing_pct = "Apgar 5 missing, %"),
+  "Supplementary_Table_1_missingness.csv" = c(country = "Country", birth_year = "Birth year", singleton_births = "Singleton births, n", gestational_age_missing_pct = "Gestational age missing, %", birth_weight_missing_pct = "Birth weight missing, %", education_unknown_pct = "Education unknown, %", prenatal_care_unknown_pct = "Prenatal visit count unknown, %", prenatal_visit_count_unknown_pct = "Prenatal visit count unknown, %", delivery_mode_unknown_pct = "Delivery mode unknown, %", apgar5_missing_pct = "Apgar 5 missing, %"),
   "Supplementary_Table_3_variable_harmonization.csv" = c(harmonised_variable = "Harmonised variable", us_source_variable = "US variable", us_coding = "US coding", brazil_source_variable = "Brazil variable", brazil_coding = "Brazil coding", final_harmonised_category = "Harmonised category", notes = "Notes"),
   "Supplementary_Table_6_education_harmonization.csv" = c(harmonised_category = "Category", us_source_variable = "US variable", us_source_coding_detail = "US coding", brazil_source_variable = "Brazil variable", brazil_source_coding_detail = "Brazil coding", final_decision = "Decision"),
   "Supplementary_Table_13_registry_algorithms.csv" = c(Domain = "Domain", `Source variables` = "Source variables", `Rule used in primary analysis` = "Primary rule", `Unknown/implausible handling` = "Unknown/implausible handling", `Reviewer-facing rationale` = "Rationale")
@@ -358,7 +358,7 @@ table_purposes <- c(
   "Age-plus-education-only sensitivity analysis excluding prenatal visit count.",
   "Risk-profile prevalence and denominators.",
   "Cross-national standardisation by risk-profile distribution.",
-  "Additional age-restricted, period-specific, and excluding-2024 sensitivity analyses.",
+  "Additional age-restricted, period-specific, and analyses excluding 2024 births.",
   "Complete-case derivation for primary outcome models.",
   "Registry algorithms, unknown handling, and grouped-count modelling implementation.",
   "Risk-profile country-interaction P values."

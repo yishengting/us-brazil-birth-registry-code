@@ -37,7 +37,7 @@ The scripts download or access these public data sources locally. Large raw and 
 
 ## Versioned Release
 
-The journal-disclosure code snapshot is tagged as `v1.0.1`. The tag is intended to support archival DOI minting through Zenodo, OSF, or another persistent repository if required by the journal.
+The journal-disclosure code snapshot is tagged as `v1.0.2`. The tag is intended to support archival DOI minting through Zenodo, OSF, or another persistent repository if required by the journal.
 
 ## Requirements
 

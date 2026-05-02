@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this code, please cite the associated manuscript."
 title: "Code for registry marker surveillance analysis of adverse singleton birth outcomes in Brazil and the United States"
-version: "1.0.1"
+version: "1.0.2"
 date-released: "2026-05-02"
 repository-code: "https://github.com/yishengting/us-brazil-birth-registry-code"
 url: "https://github.com/yishengting/us-brazil-birth-registry-code"
