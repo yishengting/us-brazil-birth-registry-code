@@ -67,43 +67,28 @@ save_all <- function(plot, name, width, height) {
   invisible(file.copy(tiff_path, out_tiff, overwrite = TRUE))
 }
 
-excess_burden <- read.csv(root_path("outputs", "revision", "tables", "table_excess_burden_fraction.csv"), stringsAsFactors = FALSE)
 table3 <- read.csv(root_path("outputs", "revision", "tables", "table3_singleton_risk_score_models.csv"), stringsAsFactors = FALSE)
 no_care <- read.csv(root_path("outputs", "revision2", "tables", "supplementary_table_no_prenatal_care_sensitivity.csv"), stringsAsFactors = FALSE)
 age_education <- read.csv(root_path("outputs", "revision2", "tables", "supplementary_table_age_education_only_sensitivity.csv"), stringsAsFactors = FALSE)
 term_lbw <- read.csv(root_path("outputs", "revision2", "tables", "supplementary_table_term_low_birth_weight_models.csv"), stringsAsFactors = FALSE)
 profile_prev <- read.csv(file.path(tab_supp, "Supplementary_Table_9_risk_profile_prevalence.csv"), stringsAsFactors = FALSE, check.names = FALSE)
 
-burden_data <- excess_burden |>
-  mutate(
-    outcome_label = outcome_labels[outcome],
-    outcome_label = factor(outcome_label, levels = c("Low birth weight", "Preterm birth")),
-    pct = excess_burden_fraction * 100,
-    y = as.numeric(outcome_label) + if_else(country == "Brazil", 0.12, -0.12),
-    label = paste0(fmt1(pct), "%")
-  )
-burden_plot <- ggplot(burden_data, aes(color = country, shape = country)) +
-  geom_segment(aes(x = 0, xend = pct, y = y, yend = y), linewidth = 1.0, lineend = "round") +
-  geom_point(aes(x = pct, y = y), size = 2.5) +
-  geom_text(aes(x = pct + 0.42, y = y, label = label), hjust = 0, size = 2.9, color = "#1F2937") +
-  scale_color_manual(values = country_palette) +
-  scale_shape_manual(values = country_shapes) +
-  scale_y_continuous(breaks = c(1, 2), labels = c("Low birth weight", "Preterm birth")) +
-  coord_cartesian(xlim = c(0, 17.5), ylim = c(0.55, 2.45), expand = FALSE, clip = "off") +
-  labs(x = "Risk-stratified excess burden fraction (%)", y = NULL) +
-  theme_journal(9.5) +
-  theme(
-    panel.grid.major.x = element_line(color = "#F3F4F6", linewidth = 0.25),
-    panel.grid.major.y = element_line(color = "#E5E7EB", linewidth = 0.3),
-    plot.margin = margin(8, 40, 8, 8)
-  )
-save_all(burden_plot, "supplementary_figure1_excess_burden_fraction", 7.2, 3.6)
-
-old_names <- file.path(
-  c(fig_png, fig_pdf, fig_tiff),
-  paste0("supplementary_figure_excess_burden_fraction.", c("png", "pdf", "tiff"))
+obsolete_figures <- c(
+  "supplementary_figure_excess_burden_fraction",
+  "supplementary_figure1_excess_burden_fraction",
+  "supplementary_figure2_sensitivity_forest",
+  "supplementary_figure3_risk_profile_prevalence",
+  "supplementary_figure4_outcome_trends"
 )
-file.remove(old_names[file.exists(old_names)])
+for (dir in c(fig_png, fig_pdf, fig_tiff, out_dir)) {
+  ext <- if (basename(dir) %in% c("png", "pdf", "tiff")) basename(dir) else NULL
+  if (is.null(ext)) {
+    stale <- file.path(dir, paste0(rep(obsolete_figures, each = 3), ".", c("png", "pdf", "tiff")))
+  } else {
+    stale <- file.path(dir, paste0(obsolete_figures, ".", ext))
+  }
+  file.remove(stale[file.exists(stale)])
+}
 
 sensitivity_data <- bind_rows(
   table3 |>
@@ -148,7 +133,7 @@ sensitivity_text <- row_map |>
       pivot_wider(names_from = country, values_from = rr_label),
     by = c("outcome", "analysis")
   )
-ylims <- c(1.35, 7.55)
+ylims <- c(1.25, 8.05)
 sens_label_panel <- ggplot() +
   annotate("text", x = 0.02, y = 7.42, label = "Preterm birth", hjust = 0, fontface = "bold", size = 3.05, color = "#111827") +
   annotate("text", x = 0.02, y = 4.82, label = "Low birth weight", hjust = 0, fontface = "bold", size = 3.05, color = "#111827") +
@@ -175,17 +160,17 @@ sens_forest_panel <- ggplot(sensitivity_data, aes(estimate, y_plot, xmin = conf.
     plot.margin = margin(5, 4, 5, 4)
   )
 sens_value_panel <- ggplot(sensitivity_text) +
-  annotate("text", x = 0.04, y = 7.55, label = "Brazil aRR (95% CI)", hjust = 0, fontface = "bold", size = 2.65, color = "#111827") +
-  annotate("text", x = 0.52, y = 7.55, label = "US aRR (95% CI)", hjust = 0, fontface = "bold", size = 2.65, color = "#111827") +
+  annotate("text", x = 0.04, y = 7.74, label = "Brazil aRR (95% CI)", hjust = 0, fontface = "bold", size = 2.65, color = "#111827") +
+  annotate("text", x = 0.52, y = 7.74, label = "US aRR (95% CI)", hjust = 0, fontface = "bold", size = 2.65, color = "#111827") +
   geom_text(aes(x = 0.04, y = y, label = Brazil), hjust = 0, size = 2.65, color = "#1F2937") +
   geom_text(aes(x = 0.52, y = y, label = `United States`), hjust = 0, size = 2.65, color = "#1F2937") +
   coord_cartesian(xlim = c(0, 1), ylim = ylims, expand = FALSE) +
   theme_void(base_family = "Helvetica") +
-  theme(plot.margin = margin(5, 2, 28, 2))
+  theme(plot.margin = margin(8, 2, 28, 2))
 sens_plot <- sens_label_panel + sens_forest_panel + sens_value_panel +
   plot_layout(widths = c(1.0, 1.35, 1.35), guides = "collect") &
   theme(legend.position = "top")
-save_all(sens_plot, "supplementary_figure2_sensitivity_forest", 10.5, 4.8)
+save_all(sens_plot, "supplementary_figure1_sensitivity_forest", 10.5, 5.0)
 
 profile_order <- c(
   "Low risk",
@@ -233,7 +218,7 @@ prev_plot <- ggplot() +
     legend.position = "top",
     plot.margin = margin(8, 10, 8, 8)
   )
-save_all(prev_plot, "supplementary_figure3_risk_profile_prevalence", 8.8, 5.6)
+save_all(prev_plot, "supplementary_figure2_risk_profile_prevalence", 8.8, 5.6)
 
 table_titles <- c(
   "Supplementary_Table_1_missingness.csv" = "Supplementary Table 1. Missing or unknown values among singleton live births by country and year",
@@ -244,7 +229,7 @@ table_titles <- c(
   "Supplementary_Table_6_education_harmonization.csv" = "Supplementary Table 6. Detailed education harmonisation mapping across the United States and Brazil",
   "Supplementary_Table_7_no_prenatal_care_sensitivity.csv" = "Supplementary Table 7. Sensitivity analysis using no prenatal care as the care-related risk domain",
   "Supplementary_Table_8_age_education_only_sensitivity.csv" = "Supplementary Table 8. Sensitivity analysis using age plus education risk-score domains only",
-  "Supplementary_Table_9_risk_profile_prevalence.csv" = "Supplementary Table 9. Distribution of singleton maternal risk profiles by country",
+  "Supplementary_Table_9_risk_profile_prevalence.csv" = "Supplementary Table 9. Distribution of singleton registry risk-marker profiles by country",
   "Supplementary_Table_10_cross_national_standardization.csv" = "Supplementary Table 10. Cross-national standardisation of risk-profile-distribution-adjusted outcome rates",
   "Supplementary_Table_11_additional_sensitivity.csv" = "Supplementary Table 11. Additional sensitivity analyses for age-education coupling and temporal heterogeneity",
   "Supplementary_Table_12_complete_case_derivation.csv" = "Supplementary Table 12. Complete-case derivation for primary outcome models among singleton births",
@@ -352,9 +337,8 @@ index_lines <- c(
   "",
   "| Item | File stem | Purpose |",
   "| --- | --- | --- |",
-  "| Supplementary Figure 1 | supplementary_figure1_excess_burden_fraction | Descriptive risk-stratified excess burden fraction for preterm birth and low birth weight. |",
-  "| Supplementary Figure 2 | supplementary_figure2_sensitivity_forest | Robustness of highest available risk-score contrasts across alternative exposure definitions and term low birth weight. |",
-  "| Supplementary Figure 3 | supplementary_figure3_risk_profile_prevalence | Distribution of profile-classifiable singleton maternal risk profiles by country, with percentage-point differences. |",
+  "| Supplementary Figure 1 | supplementary_figure1_sensitivity_forest | Robustness of largest available risk-score contrasts across alternative exposure definitions and term low birth weight. |",
+  "| Supplementary Figure 2 | supplementary_figure2_risk_profile_prevalence | Distribution of profile-classifiable singleton maternal risk profiles by country, with percentage-point differences. |",
   "",
   "## Supplementary Tables",
   "",
