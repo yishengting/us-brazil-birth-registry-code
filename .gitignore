@@ -39,4 +39,5 @@ cover_letter*
 *.log
 *.tmp
 *.part
-
+__pycache__/
+*.pyc

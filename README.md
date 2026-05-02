@@ -37,7 +37,7 @@ The scripts download or access these public data sources locally. Large raw and 
 
 ## Versioned Release
 
-The journal-disclosure code snapshot is tagged as `v1.0.0`. The tag is intended to support archival DOI minting through Zenodo, OSF, or another persistent repository if required by the journal.
+The journal-disclosure code snapshot is tagged as `v1.0.1`. The tag is intended to support archival DOI minting through Zenodo, OSF, or another persistent repository if required by the journal.
 
 ## Requirements
 
@@ -54,6 +54,8 @@ source("scripts/install_packages.R")
 ```
 
 Some downloads are large. Run the pipeline on a machine with sufficient disk space and memory for national individual-level birth registry files.
+
+The harmonisation step also uses Python 3 with `pyarrow` for streaming Parquet concatenation. This avoids collecting the full 2017-2024 pooled registry into R memory during final file assembly.
 
 ## Reproduce The Analysis Locally
 

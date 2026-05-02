@@ -57,7 +57,6 @@ save_all <- function(plot, name, width, height) {
   file.copy(tmp_tiff, file.path(fig_tiff, basename(tmp_tiff)), overwrite = TRUE)
 }
 
-table3 <- read.csv(file.path(tab_main, "table3_singleton_risk_score_models.csv"), stringsAsFactors = FALSE)
 read_first_csv <- function(...) {
   paths <- c(...)
   existing <- paths[file.exists(paths)]
@@ -66,19 +65,29 @@ read_first_csv <- function(...) {
   }
   read.csv(existing[[1]], stringsAsFactors = FALSE)
 }
+table3 <- read_first_csv(
+  file.path(tab_main, "table3_singleton_risk_score_models.csv"),
+  root_path("outputs", "revision", "tables", "table3_singleton_risk_score_models.csv")
+)
 no_care <- read_first_csv(
+  root_path("outputs", "revision2", "tables", "supplementary_table_no_prenatal_care_sensitivity.csv"),
   file.path(tab_supp, "supplementary_table_no_prenatal_care_sensitivity.csv"),
   file.path(tab_supp, "Supplementary_Table_7_no_prenatal_care_sensitivity.csv")
 )
 age_education <- read_first_csv(
+  root_path("outputs", "revision2", "tables", "supplementary_table_age_education_only_sensitivity.csv"),
   file.path(tab_supp, "supplementary_table_age_education_only_sensitivity.csv"),
   file.path(tab_supp, "Supplementary_Table_8_age_education_only_sensitivity.csv")
 )
 term_lbw <- read_first_csv(
+  root_path("outputs", "revision2", "tables", "supplementary_table_term_low_birth_weight_models.csv"),
   file.path(tab_supp, "supplementary_table_term_low_birth_weight_models.csv"),
   file.path(tab_supp, "Supplementary_Table_4_term_low_birth_weight.csv")
 )
-abs_risk <- read.csv(file.path(tab_main, "table5_absolute_risks_with_ci.csv"), stringsAsFactors = FALSE)
+abs_risk <- read_first_csv(
+  file.path(tab_main, "table5_absolute_risks_with_ci.csv"),
+  root_path("outputs", "revision2", "tables", "table5_absolute_risks_with_ci.csv")
+)
 
 sensitivity_forest_data <- bind_rows(
   table3 |>
