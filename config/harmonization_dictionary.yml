@@ -1,0 +1,72 @@
+version: 1
+updated: "2026-04-29"
+principle: Unknown, not stated, or unavailable source values are kept as unknown and excluded from complete-case adjusted models unless explicitly used in sensitivity analyses.
+
+variables:
+  birth_year:
+    us: dob_yy
+    br: derived from DTNASC or data file year
+  maternal_age:
+    us: mager
+    br: IDADEMAE
+    valid_range: [10, 55]
+  maternal_education:
+    us: meduc
+    br: ESCMAE / ESCMAE2010
+    harmonized_categories: [low, middle, high, unknown]
+    low_definition: Less than completed high school or country-specific equivalent.
+    coding_note: US meduc 1-2 and Brazil ESCMAE2010 0-2 are classified as low; US meduc 3 and Brazil ESCMAE2010 3 are classified as middle because they indicate completed high school or country-specific secondary schooling.
+  prenatal_visits:
+    us: previs
+    br: CONSULTAS
+    primary_inadequate: <4 visits
+    strict_inadequate: <7 visits
+  plurality:
+    us: dplural
+    br: GRAVIDEZ
+    harmonized_categories: [singleton, multiple, unknown]
+  parity_or_birth_order:
+    us: lbo_rec
+    br: QTDFILVIVO
+  gestational_age:
+    us: oegest_comb preferred, combgest fallback
+    br: SEMAGESTAC preferred, GESTACAO category fallback
+    valid_range_weeks: [22, 44]
+  birth_weight:
+    us: dbwt
+    br: PESO
+    valid_range_grams: [300, 7000]
+  delivery_mode:
+    us: dmeth_rec / rdmeth_rec
+    br: PARTO
+    harmonized_categories: [vaginal, cesarean, unknown]
+  newborn_sex:
+    us: sex
+    br: SEXO
+    harmonized_categories: [male, female, unknown]
+  apgar5:
+    us: apgar5
+    br: APGAR5
+    low_definition: <7
+  congenital_anomaly:
+    us: ca_* anomaly indicators
+    br: CODANOMAL
+    definition: Any anomaly indicator present or ICD-10 anomaly code non-empty.
+
+risk_domains:
+  age_risk: maternal_age <20 or maternal_age >=35
+  inadequate_prenatal_care: prenatal_visits <4
+  low_education: less than completed high school or country-specific equivalent
+
+singleton_phenotypes:
+  - all_three
+  - age_risk_plus_inadequate_care
+  - age_risk_plus_low_education
+  - low_education_plus_inadequate_care
+  - inadequate_prenatal_care_only
+  - age_risk_only
+  - low_education_only
+  - low_risk
+
+secondary_obstetric_marker:
+  multiple_gestation: twin or higher-order multiple gestation; excluded from primary singleton risk score.

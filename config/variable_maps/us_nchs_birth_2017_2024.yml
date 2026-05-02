@@ -1,0 +1,30 @@
+source: NCHS Natality Birth Data Files
+years: [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+layout_source: NBER Stata dictionary files, archived annual NCHS user guides
+core_fields:
+  birth_year: dob_yy
+  maternal_age: mager
+  maternal_education: meduc
+  prenatal_visits: previs
+  plurality: dplural
+  birth_order: lbo_rec
+  gestational_age_obstetric_estimate: oegest_comb
+  gestational_age_combined: combgest
+  birth_weight: dbwt
+  delivery_method: dmeth_rec
+  newborn_sex: sex
+  apgar5: apgar5
+  congenital_anomaly_indicators:
+    - ca_anen
+    - ca_mnsb
+    - ca_cchd
+    - ca_cdh
+    - ca_omph
+    - ca_gast
+    - ca_limb
+    - ca_cleft
+    - ca_clpal
+    - ca_down
+    - ca_disor
+    - ca_hypo
+

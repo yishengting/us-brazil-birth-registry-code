@@ -1,0 +1,42 @@
+.DS_Store
+.Rhistory
+.RData
+.Rproj.user/
+
+# Data are public but large and must be downloaded locally.
+data/*
+!data/README.md
+
+# Generated outputs are not part of the disclosure repository.
+outputs/*
+!outputs/README.md
+
+# Submission and manuscript materials must not be committed.
+submission/
+response/
+Revision/
+manuscript/
+cover_letter*
+*response*
+*Response*
+
+# Generated document and figure/table formats.
+*.docx
+*.rtf
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.tif
+*.tiff
+*.zip
+*.html
+*.parquet
+*.rds
+*.Rds
+
+# Logs and temporary files.
+*.log
+*.tmp
+*.part
+

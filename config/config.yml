@@ -1,0 +1,51 @@
+project:
+  name: us_brazil_birth_registry_study
+  years: [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+  optional_years: []
+
+paths:
+  raw_us: data/raw/us_nchs
+  raw_br: data/raw/br_sinasc
+  interim_us: data/interim/us
+  interim_br: data/interim/br
+  final: data/final
+  tables: outputs/tables
+  figures: outputs/figures
+  logs: outputs/logs
+  manuscript: outputs/manuscript_report
+
+us_nchs:
+  data_base_url: https://ftp.cdc.gov/pub/health_statistics/nchs/datasets/dvs/natality
+  documentation_base_url: https://ftp.cdc.gov/pub/health_statistics/nchs/dataset_documentation/DVS/natality
+  nber_dct_base_url: https://data.nber.org/nvss/natality/programs/dct
+  data_files:
+    "2017": Nat2017US.zip
+    "2018": Nat2018us.zip
+    "2019": Nat2019us.zip
+    "2020": Nat2020us.zip
+    "2021": nat2021us.zip
+    "2022": nat2022us.zip
+    "2023": Nat2023us.zip
+    "2024": Nat2024us.zip
+  user_guides:
+    "2017": UserGuide2017.pdf
+    "2018": UserGuide2018.pdf
+    "2019": UserGuide2019-508.pdf
+    "2020": UserGuide2020.pdf
+    "2021": UserGuide2021.pdf
+    "2022": UserGuide2022.pdf
+    "2023": UserGuide2023.pdf
+    "2024": UserGuide2024.pdf
+
+brazil_sinasc:
+  package: healthbR
+  states: [AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO]
+  fallback_mirror: https://datasus-ftp-mirror.nyc3.cdn.digitaloceanspaces.com/dissemin/publicos/SINASC/NOV/DNRES
+
+analysis:
+  primary_outcomes: [preterm_birth, low_birth_weight]
+  secondary_outcomes: [very_preterm_birth, very_low_birth_weight, low_apgar5, cesarean_delivery, congenital_anomaly, term_low_birth_weight, macrosomia]
+  reference_risk_score: "0"
+  reference_phenotype: low_risk
+  strict_prenatal_threshold: 7
+  primary_prenatal_threshold: 4

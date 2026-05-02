@@ -1,0 +1,20 @@
+source: DATASUS/SINASC Live Birth Microdata
+years: [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+preferred_access: healthbR::sinasc_data
+core_fields:
+  maternal_age: IDADEMAE
+  maternal_education:
+    - ESCMAE2010
+    - ESCMAE
+  prenatal_care: CONSULTAS
+  gestational_age_weeks: SEMAGESTAC
+  gestational_age_category: GESTACAO
+  birth_weight: PESO
+  delivery_mode: PARTO
+  plurality: GRAVIDEZ
+  apgar5: APGAR5
+  newborn_sex: SEXO
+  congenital_anomaly:
+    - CODANOMAL
+    - IDANOMAL
+
