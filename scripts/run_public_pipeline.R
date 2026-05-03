@@ -12,6 +12,8 @@ steps <- c(
   "scripts/20_final_submission_enhancements.R",
   "scripts/22_additional_sensitivity.R",
   "scripts/24_s2_reporting_transparency.R",
+  "scripts/25_upgrade_submission_figures_tables.R",
+  "scripts/26_upgrade_supplementary_figures_tables.R",
   "scripts/27_grouped_count_validation.R"
 )
 
@@ -21,4 +23,3 @@ for (step in steps) {
 }
 
 message("Public reproducibility pipeline complete.")
-

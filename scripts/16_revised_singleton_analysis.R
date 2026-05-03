@@ -44,11 +44,11 @@ score_labels <- c("1" = "1 risk domain", "2" = "2 risk domains", "3" = "3 risk d
 phenotype_labels <- c(
   low_risk = "Low risk",
   age_only = "Age risk only",
-  inadequate_care_only = "Inadequate prenatal care only",
+  inadequate_care_only = "Low prenatal-visit count only",
   low_education_only = "Low education only",
-  age_inadequate = "Age risk + inadequate care",
+  age_inadequate = "Age risk + low visit count",
   age_low_education = "Age risk + low education",
-  education_inadequate = "Low education + inadequate care",
+  education_inadequate = "Low education + low visit count",
   all_three = "All three domains"
 )
 
@@ -326,7 +326,7 @@ abs_plot <- abs_pheno |>
   geom_col(position = position_dodge(width = 0.72), width = 0.62) +
   facet_wrap(~ outcome, scales = "free_x", nrow = 1) +
   scale_fill_manual(values = palette) +
-  labs(title = "Figure 4. Adjusted absolute risk by singleton maternal risk phenotype", subtitle = "Model-standardized risks per 1,000 singleton live births", x = "Adjusted risk per 1,000 singleton live births", y = NULL) +
+  labs(title = "Figure 4. Adjusted absolute risk by singleton registry risk-marker profile", subtitle = "Model-standardized risks per 1,000 singleton live births", x = "Adjusted risk per 1,000 singleton live births", y = NULL) +
   theme_pub(9)
 save_fig(abs_plot, "figure4_singleton_absolute_risk", 10, 5.2)
 

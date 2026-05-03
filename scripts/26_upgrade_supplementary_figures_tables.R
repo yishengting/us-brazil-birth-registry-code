@@ -227,7 +227,7 @@ table_titles <- c(
   "Supplementary_Table_4_term_low_birth_weight.csv" = "Supplementary Table 4. Risk-score associations with term low birth weight among singleton births",
   "Supplementary_Table_5_age_subtype_models.csv" = "Supplementary Table 5. Age-subtype associations with primary outcomes among singleton births",
   "Supplementary_Table_6_education_harmonization.csv" = "Supplementary Table 6. Detailed education harmonisation mapping across the United States and Brazil",
-  "Supplementary_Table_7_no_prenatal_care_sensitivity.csv" = "Supplementary Table 7. Sensitivity analysis using no prenatal care as the care-related risk domain",
+  "Supplementary_Table_7_no_prenatal_care_sensitivity.csv" = "Supplementary Table 7. Sensitivity analysis using no prenatal care as the visit-count sensitivity domain",
   "Supplementary_Table_8_age_education_only_sensitivity.csv" = "Supplementary Table 8. Sensitivity analysis using age plus education risk-score domains only",
   "Supplementary_Table_9_risk_profile_prevalence.csv" = "Supplementary Table 9. Distribution of singleton registry risk-marker profiles by country",
   "Supplementary_Table_10_cross_national_standardization.csv" = "Supplementary Table 10. Cross-national standardisation of risk-profile-distribution-adjusted outcome rates",

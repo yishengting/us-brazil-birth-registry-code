@@ -143,11 +143,11 @@ df <- arrow::read_parquet(file.path("data", "final", sprintf("pooled_harmonized_
       is.na(risk_score3) ~ NA_character_,
       !age_risk & !inadequate_prenatal_care & !low_education ~ "Low risk",
       age_risk & !inadequate_prenatal_care & !low_education ~ "Age risk only",
-      !age_risk & inadequate_prenatal_care & !low_education ~ "Inadequate prenatal care only",
+      !age_risk & inadequate_prenatal_care & !low_education ~ "Low prenatal-visit count only",
       !age_risk & !inadequate_prenatal_care & low_education ~ "Low education only",
-      age_risk & inadequate_prenatal_care & !low_education ~ "Age risk + inadequate care",
+      age_risk & inadequate_prenatal_care & !low_education ~ "Age risk + low visit count",
       age_risk & !inadequate_prenatal_care & low_education ~ "Age risk + low education",
-      !age_risk & inadequate_prenatal_care & low_education ~ "Low education + inadequate care",
+      !age_risk & inadequate_prenatal_care & low_education ~ "Low education + low visit count",
       age_risk & inadequate_prenatal_care & low_education ~ "All three domains",
       TRUE ~ NA_character_
     )
@@ -157,11 +157,11 @@ df <- arrow::read_parquet(file.path("data", "final", sprintf("pooled_harmonized_
 phenotype_levels <- c(
   "Low risk",
   "Age risk only",
-  "Inadequate prenatal care only",
+  "Low prenatal-visit count only",
   "Low education only",
-  "Age risk + inadequate care",
+  "Age risk + low visit count",
   "Age risk + low education",
-  "Low education + inadequate care",
+  "Low education + low visit count",
   "All three domains"
 )
 phenotype_key <- tibble::tibble(
@@ -180,11 +180,11 @@ phenotype_key <- tibble::tibble(
 phenotype_palette <- c(
   "Low risk" = "#009E73",
   "Age risk only" = "#0072B2",
-  "Inadequate prenatal care only" = "#E69F00",
+  "Low prenatal-visit count only" = "#E69F00",
   "Low education only" = "#D55E00",
-  "Age risk + inadequate care" = "#56B4E9",
+  "Age risk + low visit count" = "#56B4E9",
   "Age risk + low education" = "#CC79A7",
-  "Low education + inadequate care" = "#999933",
+  "Low education + low visit count" = "#999933",
   "All three domains" = "#666666"
 )
 phenotype_prev <- df |>
@@ -202,7 +202,7 @@ prev_plot <- phenotype_prev |>
   scale_y_continuous(expand = c(0, 0), breaks = seq(0, 100, 20)) +
   coord_cartesian(ylim = c(0, 100)) +
   labs(
-    title = "Supplementary Figure 3. Distribution of singleton maternal risk phenotypes",
+    title = "Supplementary Figure 3. Distribution of singleton registry risk-marker profiles",
     subtitle = "Percent distribution by country",
     x = NULL,
     y = "Percent of singleton live births"

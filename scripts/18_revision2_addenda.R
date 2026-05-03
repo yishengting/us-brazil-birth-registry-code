@@ -37,11 +37,11 @@ outcome_labels <- c(
 phenotype_labels <- c(
   low_risk = "Low risk",
   age_only = "Age risk only",
-  inadequate_care_only = "Inadequate prenatal care only",
+  inadequate_care_only = "Low prenatal-visit count only",
   low_education_only = "Low education only",
-  age_inadequate = "Age risk + inadequate care",
+  age_inadequate = "Age risk + low visit count",
   age_low_education = "Age risk + low education",
-  education_inadequate = "Low education + inadequate care",
+  education_inadequate = "Low education + low visit count",
   all_three = "All three domains"
 )
 
@@ -216,9 +216,9 @@ education_harmonization <- tibble::tribble(
 
 prenatal_harmonization <- tibble::tribble(
   ~harmonized_variable, ~us_source_variable, ~us_definition, ~brazil_source_variable, ~brazil_definition, ~interpretation,
-  "Inadequate prenatal care (<4 visits)", "previs", "Total number of prenatal visits", "CONSULTAS", "Categorical prenatal visit count", "Main registry marker; may be affected by gestational length",
+  "Low recorded prenatal-visit count (<4 visits)", "previs", "Total number of prenatal visits", "CONSULTAS", "Categorical prenatal visit count", "Main registry marker; may be affected by gestational length",
   "No prenatal care", "previs", "0 visits", "CONSULTAS", "No prenatal visits category", "Sensitivity marker less affected by shortened gestation than visit-count thresholds",
-  "Strict inadequate care (<7 visits)", "previs", "Total visits <7", "CONSULTAS", "Categories below 7 visits", "Sensitivity threshold"
+  "Strict low visit-count marker (<7 visits)", "previs", "Total visits <7", "CONSULTAS", "Categories below 7 visits", "Sensitivity threshold"
 )
 
 write_csv_safe(term_lbw_models, file.path(table_dir, "supplementary_table_term_low_birth_weight_models.csv"))
@@ -242,7 +242,7 @@ abs_plot <- abs_ci |>
   facet_wrap(~ outcome, scales = "free_x", nrow = 1) +
   scale_color_manual(values = palette) +
   labs(
-    title = "Figure 4. Adjusted absolute risk by singleton maternal risk phenotype",
+    title = "Figure 4. Adjusted absolute risk by singleton registry risk-marker profile",
     subtitle = "Model-standardized risks per 1,000 singleton live births; error bars show delta-method 95% CIs",
     x = "Adjusted risk per 1,000 singleton live births",
     y = NULL

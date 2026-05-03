@@ -32,11 +32,11 @@ risk_score_labels <- c(
 phenotype_labels <- c(
   low_risk = "Low risk",
   age_risk_only = "Age risk only",
-  inadequate_prenatal_care_only = "Inadequate prenatal care only",
+  inadequate_prenatal_care_only = "Low prenatal-visit count only",
   low_education_only = "Low education only",
   multiple_only = "Multiple gestation only",
-  age_risk_plus_inadequate_care = "Age risk + inadequate care",
-  low_education_plus_inadequate_care = "Low education + inadequate care",
+  age_risk_plus_inadequate_care = "Age risk + low visit count",
+  low_education_plus_inadequate_care = "Low education + low visit count",
   multiple_plus_any_social_or_age_risk = "Multiple + any social/age risk",
   highest_risk = "Highest risk (>=3 domains)"
 )
@@ -169,7 +169,7 @@ make_publication_absolute_risk <- function(table5) {
     facet_wrap(~ outcome, scales = "free_x", nrow = 1) +
     scale_fill_manual(values = pub_palette) +
     labs(
-      title = "Figure 4. Adjusted absolute risk by maternal risk phenotype",
+      title = "Figure 4. Adjusted absolute risk by registry risk-marker profile",
       subtitle = "Model-standardized risks per 1,000 live births",
       x = "Adjusted risk per 1,000 live births",
       y = NULL
@@ -236,7 +236,7 @@ make_pub_table1 <- function(table1) {
       `Maternal age, mean years` = format_num(maternal_age_mean, 1),
       `Maternal age risk, %` = format_num(age_risk_pct, 1),
       `Low education, %` = format_num(low_education_pct, 1),
-      `Inadequate prenatal care, %` = format_num(inadequate_prenatal_care_pct, 1),
+      `Low recorded prenatal-visit count, %` = format_num(inadequate_prenatal_care_pct, 1),
       `Multiple gestation, %` = format_num(multiple_gestation_pct, 1),
       `Preterm birth, %` = format_num(preterm_birth_pct, 1),
       `Low birth weight, %` = format_num(low_birth_weight_pct, 1),
