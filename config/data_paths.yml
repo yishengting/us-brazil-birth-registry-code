@@ -1,0 +1,49 @@
+project_root: "."
+
+raw_data:
+  main_analysis: "data/raw"
+  external_validation: ""
+  background_data: ""
+  controlled_access: ""
+
+project_outputs:
+  interim_data: "data/interim"
+  final_data: "data/final"
+  results_tables: "outputs"
+  figures: "submission/figures"
+  manuscript: "submission/manuscript"
+  submission_package: "submission"
+  logs: "outputs/logs"
+
+metadata:
+  download_log: "outputs/logs/raw_file_manifest.csv"
+  data_source_audit: "logs/data_source_audit.md"
+  analysis_data_audit: "outputs/logs/analysis_data_audit_20260713.json"
+  result_consistency_audit: "logs/result_consistency_check.md"
+
+version_control:
+  local_git_required: true
+  remote_repository_configured: false
+  remote_repository_url: ""
+  version_register: "logs/version_register.md"
+  release_manifest: "09_submission_package/release_manifest_v1.0.4.yml"
+  public_repo_export_path: "public_repo_export_v1.0.4"
+  upload_requires_researcher_approval: true
+
+data_versions:
+  main_analysis:
+    accession_or_id: "NCHS Natality public-use files and DATASUS/SINASC, 2017-2024"
+    download_or_access_date: "2026-04-29 to 2026-05-26"
+    source_version: "frozen April-May 2026 study snapshot"
+    checksum: "outputs/logs/raw_file_manifest.csv; verified by restored_data_hash_audit_20260713.json"
+    public_or_controlled: "public-use"
+    redistribution: "source records are not redistributed"
+  computational_validation:
+    accession_or_id: "deterministic country-year stratified subset of main-analysis data"
+    source_version: "seed 20260501; Arrow CPU scan locked to one thread"
+    checksum: "outputs/validation/Supplementary_Table_19_grouped_count_validation.csv"
+  external_validation:
+    accession_or_id: "not used"
+  controlled_access:
+    accession_or_id: "not used"
+    public_release_allowed: false

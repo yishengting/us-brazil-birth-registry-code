@@ -37,7 +37,7 @@ The scripts download or access these public data sources locally. Large raw and 
 
 ## Versioned Release
 
-The journal-disclosure code snapshot is tagged as `v1.0.3`. The tag is intended to support archival DOI minting through Zenodo, OSF, or another persistent repository if required by the journal.
+The corrected journal-disclosure snapshot is version `v1.0.4`. It supersedes `v1.0.3` for inferential output because `v1.0.4` reconstructs individual-record HC0 covariance exactly from grouped Bernoulli counts and uses the joint delta method for risk differences. The versioned source is available at <https://github.com/yishengting/us-brazil-birth-registry-code/tree/v1.0.4>.
 
 ## Requirements
 
@@ -64,6 +64,8 @@ From the repository root:
 ```r
 source("scripts/run_public_pipeline.R")
 ```
+
+On macOS, the full 51-million-record analysis can exceed R's default vector-memory ceiling even when physical resident memory remains lower. The verified recovery run used `R_MAX_VSIZE=40Gb` on a 16 GB machine. The statistical corrections and recovery checks are summarised in `docs/release_notes_v1.0.4.md`.
 
 The pipeline writes downloaded source files under `data/`, derived analytic files under `data/final/`, and generated tables/figures/logs under `outputs/`. Those paths are ignored by git.
 

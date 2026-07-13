@@ -127,7 +127,7 @@ sens_plot <- sensitivity_forest_data |>
   scale_color_manual(values = palette) +
   scale_x_log10() +
   labs(
-    title = "Supplementary Figure 2. Robustness of risk-score associations",
+    title = "Figure S2. Robustness of risk-score associations",
     subtitle = "Highest available risk category versus no risk domains under alternative exposure definitions",
     x = "Adjusted risk ratio, log scale",
     y = NULL
@@ -202,7 +202,7 @@ prev_plot <- phenotype_prev |>
   scale_y_continuous(expand = c(0, 0), breaks = seq(0, 100, 20)) +
   coord_cartesian(ylim = c(0, 100)) +
   labs(
-    title = "Supplementary Figure 3. Distribution of singleton registry risk-marker profiles",
+    title = "Figure S3. Distribution of singleton registry risk-marker profiles",
     subtitle = "Percent distribution by country",
     x = NULL,
     y = "Percent of singleton live births"

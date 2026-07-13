@@ -34,7 +34,7 @@ fmt1 <- function(x) sprintf("%.1f", as.numeric(x))
 fmt_rr <- function(est, lo, hi) sprintf("%.2f (%.2f-%.2f)", est, lo, hi)
 parse_num <- function(x) as.numeric(gsub(",", "", as.character(x), fixed = FALSE))
 
-theme_journal <- function(base_size = 9) {
+theme_journal <- function(base_size = 9.4) {
   theme_classic(base_size = base_size, base_family = "Helvetica") +
     theme(
       axis.title = element_text(face = "bold", color = "#111827"),
@@ -44,9 +44,9 @@ theme_journal <- function(base_size = 9) {
       legend.position = "top",
       legend.title = element_blank(),
       legend.key.width = grid::unit(0.55, "cm"),
-      strip.background = element_rect(fill = "#F3F4F6", color = "#9CA3AF", linewidth = 0.25),
+      strip.background = element_rect(fill = "white", color = "#111827", linewidth = 0.25),
       strip.text = element_text(face = "bold", color = "#111827"),
-      panel.grid.major.y = element_line(color = "#E5E7EB", linewidth = 0.25),
+      panel.grid.major.y = element_line(color = "#ECEFF3", linewidth = 0.22),
       panel.grid.minor = element_blank(),
       plot.margin = margin(8, 12, 8, 8)
     )
@@ -221,20 +221,20 @@ prev_plot <- ggplot() +
 save_all(prev_plot, "supplementary_figure2_risk_profile_prevalence", 8.8, 5.6)
 
 table_titles <- c(
-  "Supplementary_Table_1_missingness.csv" = "Supplementary Table 1. Missing or unknown values among singleton live births by country and year",
-  "Supplementary_Table_2_country_interaction_ratios.csv" = "Supplementary Table 2. Country interaction ratios for risk-score associations",
-  "Supplementary_Table_3_variable_harmonization.csv" = "Supplementary Table 3. Cross-national variable harmonisation framework",
-  "Supplementary_Table_4_term_low_birth_weight.csv" = "Supplementary Table 4. Risk-score associations with term low birth weight among singleton births",
-  "Supplementary_Table_5_age_subtype_models.csv" = "Supplementary Table 5. Age-subtype associations with primary outcomes among singleton births",
-  "Supplementary_Table_6_education_harmonization.csv" = "Supplementary Table 6. Detailed education harmonisation mapping across the United States and Brazil",
-  "Supplementary_Table_7_no_prenatal_care_sensitivity.csv" = "Supplementary Table 7. Sensitivity analysis using no prenatal care as the visit-count sensitivity domain",
-  "Supplementary_Table_8_age_education_only_sensitivity.csv" = "Supplementary Table 8. Sensitivity analysis using age plus education risk-score domains only",
-  "Supplementary_Table_9_risk_profile_prevalence.csv" = "Supplementary Table 9. Distribution of singleton registry risk-marker profiles by country",
-  "Supplementary_Table_10_cross_national_standardization.csv" = "Supplementary Table 10. Cross-national standardisation of risk-profile-distribution-adjusted outcome rates",
-  "Supplementary_Table_11_additional_sensitivity.csv" = "Supplementary Table 11. Additional sensitivity analyses for age-education coupling and temporal heterogeneity",
-  "Supplementary_Table_12_complete_case_derivation.csv" = "Supplementary Table 12. Complete-case derivation for primary outcome models among singleton births",
-  "Supplementary_Table_13_registry_algorithms.csv" = "Supplementary Table 13. Registry variable algorithms, unknown handling, and grouped-count modelling implementation",
-  "Supplementary_Table_14_risk_profile_interaction_p_values.csv" = "Supplementary Table 14. Country interaction P values for singleton maternal risk-profile associations"
+  "Supplementary_Table_1_missingness.csv" = "Table S1. Missing or unknown values among singleton live births by country and year",
+  "Supplementary_Table_2_country_interaction_ratios.csv" = "Table S2. Country interaction ratios for risk-score associations",
+  "Supplementary_Table_3_variable_harmonization.csv" = "Table S3. Cross-national variable harmonisation framework",
+  "Supplementary_Table_4_term_low_birth_weight.csv" = "Table S4. Risk-score associations with term low birth weight among singleton births",
+  "Supplementary_Table_5_age_subtype_models.csv" = "Table S5. Age-subtype associations with primary outcomes among singleton births",
+  "Supplementary_Table_6_education_harmonization.csv" = "Table S6. Detailed education harmonisation mapping across the United States and Brazil",
+  "Supplementary_Table_7_no_prenatal_care_sensitivity.csv" = "Table S7. Sensitivity analysis using no prenatal care as the visit-count sensitivity domain",
+  "Supplementary_Table_8_age_education_only_sensitivity.csv" = "Table S8. Sensitivity analysis using age plus education risk-score domains only",
+  "Supplementary_Table_9_risk_profile_prevalence.csv" = "Table S9. Distribution of singleton registry risk-marker profiles by country",
+  "Supplementary_Table_10_cross_national_standardization.csv" = "Table S10. Cross-national standardisation of risk-profile-distribution-adjusted outcome rates",
+  "Supplementary_Table_11_additional_sensitivity.csv" = "Table S11. Additional sensitivity analyses for age-education coupling and temporal heterogeneity",
+  "Supplementary_Table_12_complete_case_derivation.csv" = "Table S12. Complete-case derivation for primary outcome models among singleton births",
+  "Supplementary_Table_13_registry_algorithms.csv" = "Table S13. Registry variable algorithms, unknown handling, and grouped-count modelling implementation",
+  "Supplementary_Table_14_risk_profile_interaction_p_values.csv" = "Table S14. Country interaction P values for singleton maternal risk-profile associations"
 )
 table_notes <- c(
   "Supplementary_Table_1_missingness.csv" = "Singleton births denotes singleton records in each country-year stratum.",
@@ -250,7 +250,7 @@ table_notes <- c(
   "Supplementary_Table_11_additional_sensitivity.csv" = "Age-restricted models used the age-plus-education score among births to mothers aged >=25 years. Period-specific models used the main 3-domain score in 2017-2019, 2020-2021, and 2022-2024. Models excluding 2024 births used the main 3-domain score after removing births from the most recent registry year.",
   "Supplementary_Table_12_complete_case_derivation.csv" = "Steps are sequential within country and outcome. Profile-classifiable records required non-missing maternal age risk, education domain, and prenatal visit-count domain. Model covariates were parity or birth order and newborn sex.",
   "Supplementary_Table_13_registry_algorithms.csv" = "Rules are provided for reproducibility and RECORD-style reporting. Prenatal visit count is interpreted as a registry risk marker and not as a causal care-quality exposure. Grouped covariate-pattern counts document exact categorical aggregation used for modified Poisson models.",
-  "Supplementary_Table_14_risk_profile_interaction_p_values.csv" = "P values correspond to the pooled risk profile by country interaction terms shown as ratios of aRRs in Supplementary Table 17. Main-text interpretation emphasises ratio estimates and 95% confidence intervals."
+  "Supplementary_Table_14_risk_profile_interaction_p_values.csv" = "P values correspond to the pooled risk profile by country interaction terms shown as ratios of aRRs in Table S17. Main-text interpretation emphasises ratio estimates and 95% confidence intervals."
 )
 column_maps <- list(
   "Supplementary_Table_1_missingness.csv" = c(country = "Country", birth_year = "Birth year", singleton_births = "Singleton births, n", gestational_age_missing_pct = "Gestational age missing, %", birth_weight_missing_pct = "Birth weight missing, %", education_unknown_pct = "Education unknown, %", prenatal_care_unknown_pct = "Prenatal visit count unknown, %", prenatal_visit_count_unknown_pct = "Prenatal visit count unknown, %", delivery_mode_unknown_pct = "Delivery mode unknown, %", apgar5_missing_pct = "Apgar 5 missing, %"),
@@ -320,29 +320,36 @@ for (file_name in names(table_objects)) {
 }
 pandoc <- Sys.which("pandoc")
 if (nzchar(pandoc)) {
-  system2(pandoc, c(combined_md_path, "-o", file.path(tab_ready, "supplementary_tables_publication_ready.docx")))
+  run_pandoc_docx <- function(input, output) {
+    status <- system2(pandoc, c(shQuote(input), "-o", shQuote(output)))
+    if (!identical(status, 0L)) stop("Pandoc failed for ", input, call. = FALSE)
+  }
+  run_pandoc_docx(combined_md_path, file.path(tab_ready, "supplementary_tables_publication_ready.docx"))
   for (file_name in names(table_objects)) {
     table_id <- str_extract(file_name, "Supplementary_Table_[0-9]+")
     out_base <- paste0(table_id, "_publication_ready")
-    system2(pandoc, c(file.path(tab_ready, paste0(out_base, ".md")), "-o", file.path(tab_ready, paste0(out_base, ".docx"))))
+    run_pandoc_docx(
+      file.path(tab_ready, paste0(out_base, ".md")),
+      file.path(tab_ready, paste0(out_base, ".docx"))
+    )
   }
 } else {
   warning("Pandoc not found; Markdown tables were written but DOCX tables were not generated.")
 }
 
 index_lines <- c(
-  "# Supplementary Material Index",
+  "# Supporting Information Index",
   "",
-  "This index is organised for reviewer navigation. Supplementary Tables 1 and 12 document missingness and complete-case derivation; Tables 3, 6, and 13 document harmonisation, unknown handling, and modelling algorithms; Tables 2, 4, 5, 7, 8, 11, 14, 16, and 17 report relative-effect, interaction, and sensitivity models; Tables 9, 10, 15, and 18 report profile prevalence, standardisation, annual rates, and adjusted absolute risks; Table 19 validates grouped-count modelling against individual-record Poisson models.",
+  "This index is organised for reviewer navigation. Tables S1 and S12 document missingness and complete-case derivation; Tables S3, S6, and S13 document harmonisation, unknown handling, and modelling algorithms; Tables S2, S4, S5, S7, S8, S11, S14, S16, and S17 report relative-effect, interaction, and sensitivity models; Tables S9, S10, S15, and S18 report profile prevalence, standardisation, annual rates, and adjusted absolute risks; Table S19 validates grouped-count modelling against individual-record Poisson models.",
   "",
-  "## Supplementary Figures",
+  "## Supporting figures",
   "",
   "| Item | File stem | Purpose |",
   "| --- | --- | --- |",
-  "| Supplementary Figure 1 | supplementary_figure1_sensitivity_forest | Robustness of largest available risk-score contrasts across alternative exposure definitions and term low birth weight. |",
-  "| Supplementary Figure 2 | supplementary_figure2_risk_profile_prevalence | Distribution of profile-classifiable singleton registry risk-marker profiles by country, with percentage-point differences. |",
+  "| Figure S1 | supplementary_figure1_sensitivity_forest | Robustness of largest available risk-score contrasts across alternative exposure definitions and term low birth weight. |",
+  "| Figure S2 | supplementary_figure2_risk_profile_prevalence | Distribution of profile-classifiable singleton registry risk-marker profiles by country, with percentage-point differences. |",
   "",
-  "## Supplementary Tables",
+  "## Supporting tables",
   "",
   "| Item | File | Purpose |",
   "| --- | --- | --- |"
@@ -366,13 +373,13 @@ table_purposes <- c(
 index_lines <- c(
   index_lines,
   sprintf(
-    "| Supplementary Table %s | %s | %s |",
+    "| Table S%s | %s | %s |",
     seq_along(names(table_titles)),
     names(table_titles),
     table_purposes
   ),
   "",
-  "Editable publication-ready supplementary tables are provided in `tables/supplementary/publication_ready/` as one combined DOCX file and as individual DOCX/Markdown files."
+  "Editable publication-ready supporting tables are provided in `tables/supplementary/publication_ready/` as one combined DOCX file and as individual DOCX/Markdown files."
 )
 writeLines(index_lines, file.path(tab_supp, "SUPPLEMENTARY_MATERIAL_INDEX.md"), useBytes = TRUE)
 writeLines(index_lines, file.path(tab_ready, "SUPPLEMENTARY_MATERIAL_INDEX.md"), useBytes = TRUE)

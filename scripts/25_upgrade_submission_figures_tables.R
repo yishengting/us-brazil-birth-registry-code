@@ -56,7 +56,7 @@ write_csv_safe <- function(x, path) {
   utils::write.table(x, path, sep = ",", row.names = FALSE, col.names = TRUE, quote = TRUE, qmethod = "double", na = "")
 }
 
-theme_journal <- function(base_size = 9) {
+theme_journal <- function(base_size = 9.4) {
   theme_classic(base_size = base_size, base_family = "Helvetica") +
     theme(
       axis.title = element_text(face = "bold", color = "#111827"),
@@ -66,9 +66,9 @@ theme_journal <- function(base_size = 9) {
       legend.position = "top",
       legend.title = element_blank(),
       legend.key.width = grid::unit(0.55, "cm"),
-      strip.background = element_rect(fill = "#F3F4F6", color = "#9CA3AF", linewidth = 0.25),
+      strip.background = element_rect(fill = "white", color = "#111827", linewidth = 0.25),
       strip.text = element_text(face = "bold", color = "#111827"),
-      panel.grid.major.y = element_line(color = "#E5E7EB", linewidth = 0.25),
+      panel.grid.major.y = element_line(color = "#ECEFF3", linewidth = 0.22),
       panel.grid.minor = element_blank(),
       plot.margin = margin(8, 12, 8, 8)
     )
@@ -129,10 +129,10 @@ flow_plot <- ggplot() +
   flow_box(0.08, 0.68, 4.60, 5.30) +
   flow_box(0.08, 0.68, 3.30, 4.00) +
   flow_box(0.08, 0.68, 2.00, 2.70) +
-  flow_box(0.08, 0.38, 0.62, 1.34, "#FBFCFD") +
-  flow_box(0.46, 0.76, 0.62, 1.34, "#FBFCFD") +
-  flow_box(0.73, 0.96, 3.62, 4.22, "#F9FAFB") +
-  flow_box(0.73, 0.96, 2.30, 2.90, "#F9FAFB") +
+  flow_box(0.08, 0.38, 0.62, 1.34, "white") +
+  flow_box(0.46, 0.76, 0.62, 1.34, "white") +
+  flow_box(0.73, 0.96, 3.62, 4.22, "white") +
+  flow_box(0.73, 0.96, 2.30, 2.90, "white") +
   annotate("segment", x = 0.38, xend = 0.38, y = 4.60, yend = 4.00, color = "#374151", linewidth = 0.42, arrow = arrow(type = "closed", length = grid::unit(0.14, "cm"))) +
   annotate("segment", x = 0.38, xend = 0.38, y = 3.30, yend = 2.70, color = "#374151", linewidth = 0.42, arrow = arrow(type = "closed", length = grid::unit(0.14, "cm"))) +
   annotate("segment", x = 0.38, xend = 0.23, y = 2.00, yend = 1.34, color = "#374151", linewidth = 0.42, arrow = arrow(type = "closed", length = grid::unit(0.14, "cm"))) +
@@ -177,11 +177,12 @@ trend_data <- table2_raw |>
 trend_end <- trend_data |>
   group_by(outcome, country) |>
   filter(birth_year == max(birth_year, na.rm = TRUE)) |>
-  ungroup()
+  ungroup() |>
+  mutate(country_label = recode(country, `United States` = "US", Brazil = "Brazil"))
 trend_plot <- ggplot(trend_data, aes(birth_year, rate, color = country, group = country)) +
   geom_line(linewidth = 0.82) +
   geom_point(size = 1.8, stroke = 0.15) +
-  geom_text(data = trend_end, aes(label = country), hjust = 0, nudge_x = 0.16, size = 2.65, fontface = "bold", show.legend = FALSE) +
+  geom_text(data = trend_end, aes(label = country_label), hjust = 0, nudge_x = 0.16, size = 2.65, fontface = "bold", show.legend = FALSE) +
   facet_wrap(~ outcome, scales = "free_y", nrow = 2) +
   scale_color_manual(values = country_palette) +
   scale_x_continuous(breaks = year_breaks) +
@@ -384,14 +385,14 @@ md_table <- function(x) {
 table_notes <- list(
   table1 = "Values are percentages unless otherwise indicated. Percentages are calculated within country among singleton births in 2017 to 2024. Missing or implausible values are shown for key profile-defining and outcome variables.",
   table2 = "Rates are per 1,000 singleton live births. Caesarean delivery is summarised as a contextual service-delivery indicator rather than as a direct analogue of preterm birth or low birth weight.",
-  table3 = "Reference group is 0 risk domains. Domains were maternal age risk, low recorded prenatal-visit count (<4 visits), and low maternal education. Ratio of aRRs compares the United States with Brazil using pooled interaction models. Model N for preterm birth was 20,007,217 in Brazil and 27,608,675 in the United States; model N for low birth weight was 20,214,871 in Brazil and 27,620,016 in the United States. Interaction P values are provided in Supplementary Table 2.",
-  table4 = "Reference group is the low-risk profile. Visit-count profiles refer to low recorded prenatal-visit count (<4 visits), not a validated measure of care quality. Ratio of aRRs compares the United States with Brazil using pooled interaction terms. Model N for preterm birth was 20,007,217 in Brazil and 27,608,675 in the United States; model N for low birth weight was 20,214,871 in Brazil and 27,620,016 in the United States. Interaction P values are provided in Supplementary Table 14.",
+  table3 = "Reference group is 0 risk domains. Domains were maternal age risk, low recorded prenatal-visit count (<4 visits), and low maternal education. Ratio of aRRs compares the United States with Brazil using pooled interaction models. Model N for preterm birth was 20,007,217 in Brazil and 27,608,675 in the United States; model N for low birth weight was 20,214,871 in Brazil and 27,620,016 in the United States. Interaction P values are provided in Table S2.",
+  table4 = "Reference group is the low-risk profile. Visit-count profiles refer to low recorded prenatal-visit count (<4 visits), not a validated measure of care quality. Ratio of aRRs compares the United States with Brazil using pooled interaction terms. Model N for preterm birth was 20,007,217 in Brazil and 27,608,675 in the United States; model N for low birth weight was 20,214,871 in Brazil and 27,620,016 in the United States. Interaction P values are provided in Table S14.",
   table5 = "Adjusted risks and risk differences are reported per 1,000 singleton live births with delta-method 95% confidence intervals. Estimates were standardised to the observed covariate distribution within each country and use outcome-specific complete-case analytic populations. Risk difference is reported as Reference for the low-risk profile."
 )
 table_titles <- list(
   table1 = "Table 1. Baseline characteristics of singleton births by country",
   table2 = "Table 2. Annual outcome rates among singleton births by country",
-  table3 = "Table 3. Association between maternal risk score and primary outcomes among singleton births",
+  table3 = "Table 3. Association between registry risk-marker score and primary outcomes among singleton births",
   table4 = "Table 4. Association between singleton registry risk-marker profile and primary outcomes",
   table5 = "Table 5. Adjusted absolute risks and risk differences by singleton registry risk-marker profile"
 )
@@ -418,9 +419,16 @@ for (id in names(table_objects)) {
 }
 pandoc <- Sys.which("pandoc")
 if (nzchar(pandoc)) {
-  system2(pandoc, c(combined_md_path, "-o", file.path(tab_ready, "main_tables_publication_ready.docx")))
+  run_pandoc_docx <- function(input, output) {
+    status <- system2(pandoc, c(shQuote(input), "-o", shQuote(output)))
+    if (!identical(status, 0L)) stop("Pandoc failed for ", input, call. = FALSE)
+  }
+  run_pandoc_docx(combined_md_path, file.path(tab_ready, "main_tables_publication_ready.docx"))
   for (id in names(table_objects)) {
-    system2(pandoc, c(file.path(tab_ready, paste0(id, "_publication_ready.md")), "-o", file.path(tab_ready, paste0(id, "_publication_ready.docx"))))
+    run_pandoc_docx(
+      file.path(tab_ready, paste0(id, "_publication_ready.md")),
+      file.path(tab_ready, paste0(id, "_publication_ready.docx"))
+    )
   }
 } else {
   warning("Pandoc not found; Markdown tables were written but DOCX tables were not generated.")

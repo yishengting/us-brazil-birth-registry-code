@@ -1,4 +1,4 @@
-# Data Directory
+# Data directory
 
 This repository does not include raw, interim, or harmonised individual-level data.
 
@@ -11,5 +11,4 @@ source("scripts/04_download_clean_br_sinasc.R")
 source("scripts/05_harmonize_us_br.R")
 ```
 
-The data sources are public-use birth registry resources described in `docs/data_sources.md`.
-
+The public-use registry sources are documented in `docs/data_sources.md`. Users must obtain the records directly from the source agencies and comply with the source terms.

@@ -39,7 +39,7 @@ fit_modified_poisson <- function(data, outcome, formula_rhs, predictors) {
   agg <- aggregate_model_data(data, outcome, predictors)
   formula <- stats::as.formula(sprintf("events ~ %s + offset(log(total))", formula_rhs))
   fit <- stats::glm(formula, data = agg, family = poisson(link = "log"))
-  robust <- sandwich::vcovHC(fit, type = "HC0")
+  robust <- grouped_binary_hc0(fit, agg$events, agg$total)
   broom::tidy(lmtest::coeftest(fit, vcov. = robust), conf.int = FALSE) |>
     mutate(
       log_estimate = estimate,
@@ -166,4 +166,3 @@ calculate_paf <- function(df, outcomes) {
       mutate(outcome = outcome)
   })
 }
-

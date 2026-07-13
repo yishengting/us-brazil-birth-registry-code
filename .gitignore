@@ -1,43 +1,87 @@
+# macOS and system metadata
 .DS_Store
-.Rhistory
-.RData
-.Rproj.user/
+._*
+__MACOSX/
+Thumbs.db
 
-# Data are public but large and must be downloaded locally.
-data/*
-!data/README.md
-
-# Generated outputs are not part of the disclosure repository.
-outputs/*
-!outputs/README.md
-
-# Submission and manuscript materials must not be committed.
-submission/
-response/
-Revision/
-manuscript/
-cover_letter*
-*response*
-*Response*
-
-# Generated document and figure/table formats.
-*.docx
-*.rtf
-*.pdf
-*.png
-*.jpg
-*.jpeg
-*.tif
-*.tiff
-*.zip
-*.html
-*.parquet
-*.rds
-*.Rds
-
-# Logs and temporary files.
-*.log
-*.tmp
-*.part
+# Editor and local environment
+.vscode/
+.idea/
+*.swp
+*.swo
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+env/
 __pycache__/
-*.pyc
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Credentials and private notes
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*
+secrets*
+private_notes/
+
+# Raw, controlled, and bulky data are documented by path, not tracked
+data/raw/
+data/external/
+data/controlled/
+data/interim/
+data/final/
+data/processed/
+data/cache/
+raw_data/
+controlled_data/
+external_data/
+*.bam
+*.bai
+*.cram
+*.fastq
+*.fastq.gz
+*.fq
+*.fq.gz
+*.sam
+*.vcf.gz
+*.h5
+*.h5ad
+*.rds
+*.RData
+*.parquet
+
+# Generated archives and submission/public export bundles
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+09_submission_package/*.zip
+public_repo_export/
+public_repo_export*/
+
+# Large or regenerated outputs
+outputs/qa/
+*.tmp
+*.temp
+*.bak
+*.log
+*.aux
+*.out
+*.toc
+*.synctex.gz
+
+# Keep these tracked when present
+!logs/version_register.md
+!logs/decision_register.md
+!logs/data_source_audit.md
+!logs/result_consistency_check.md
+!logs/submission_audit.md
+!data/raw_data_paths.md

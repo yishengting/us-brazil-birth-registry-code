@@ -92,7 +92,7 @@ fit_poisson <- function(data, outcome, exposure, interaction = FALSE) {
   purrr::imap_dfr(pieces, function(piece, nm) {
     agg <- aggregate_model_data(piece, outcome, predictors)
     fit <- glm(as.formula(paste0("events ~ ", rhs, " + offset(log(total))")), data = agg, family = poisson(link = "log"))
-    robust <- sandwich::vcovHC(fit, type = "HC0")
+    robust <- grouped_binary_hc0(fit, agg$events, agg$total)
     broom::tidy(lmtest::coeftest(fit, vcov. = robust)) |>
       mutate(
         log_estimate = estimate,
@@ -118,7 +118,7 @@ standardized_abs_ci <- function(data, outcome, exposure) {
       data = agg,
       family = poisson(link = "log")
     )
-    vc <- sandwich::vcovHC(fit, type = "HC0")
+    vc <- grouped_binary_hc0(fit, agg$events, agg$total)
     levs <- levels(piece[[exposure]])
     risks <- purrr::map_dfr(levs, function(level_value) {
       newdata <- agg
@@ -135,17 +135,28 @@ standardized_abs_ci <- function(data, outcome, exposure) {
         exposure = level_value,
         adjusted_risk_per_1000 = risk,
         risk_ci_low = risk - 1.96 * se,
-        risk_ci_high = risk + 1.96 * se
+        risk_ci_high = risk + 1.96 * se,
+        gradient = list(grad)
       )
     })
-    ref_row <- risks |> filter(exposure == ref)
+    ref_index <- which(risks$exposure == ref)[1]
+    ref_risk <- risks$adjusted_risk_per_1000[[ref_index]]
+    ref_gradient <- risks$gradient[[ref_index]]
     risks |>
       mutate(
-        reference_risk = ref_row$adjusted_risk_per_1000[1],
+        reference_risk = ref_risk,
         risk_difference_per_1000 = adjusted_risk_per_1000 - reference_risk,
-        risk_difference_ci_low = risk_ci_low - ref_row$risk_ci_high[1],
-        risk_difference_ci_high = risk_ci_high - ref_row$risk_ci_low[1]
-      )
+        risk_difference_se = purrr::map_dbl(
+          gradient,
+          ~ {
+            difference_gradient <- .x - ref_gradient
+            sqrt(as.numeric(t(difference_gradient) %*% vc %*% difference_gradient))
+          }
+        ),
+        risk_difference_ci_low = risk_difference_per_1000 - 1.96 * risk_difference_se,
+        risk_difference_ci_high = risk_difference_per_1000 + 1.96 * risk_difference_se
+      ) |>
+      select(-gradient, -risk_difference_se)
   })
 }
 

@@ -54,7 +54,7 @@ fit_poisson_by_country <- function(data, outcome, exposure) {
     predictors <- c(exposure, active_covariates)
     agg <- aggregate_model_data(model_df, outcome, predictors)
     fit <- glm(as.formula(paste0("events ~ ", rhs, " + offset(log(total))")), data = agg, family = poisson(link = "log"))
-    robust <- sandwich::vcovHC(fit, type = "HC0")
+    robust <- grouped_binary_hc0(fit, agg$events, agg$total)
     broom::tidy(lmtest::coeftest(fit, vcov. = robust)) |>
       mutate(
         log_estimate = estimate,

@@ -147,3 +147,32 @@ yes_no_to_logical <- function(x) {
   )
 }
 
+# Exact individual-record HC0 covariance for a Bernoulli outcome represented by
+# grouped event counts. The grouped Poisson score has the same coefficient
+# solution as the individual-record modified Poisson model, but applying
+# vcovHC() directly to grouped rows treats each covariate pattern as one
+# observation. This function reconstructs the sum of squared individual scores
+# within each pattern without expanding tens of millions of records.
+grouped_binary_hc0 <- function(fit, events, total) {
+  x <- stats::model.matrix(fit)
+  beta <- stats::coef(fit)
+  if (anyNA(beta)) {
+    stop("Aliased coefficients are not supported by grouped_binary_hc0().", call. = FALSE)
+  }
+  if (nrow(x) != length(events) || length(events) != length(total)) {
+    stop("events and total must align with the fitted grouped-model rows.", call. = FALSE)
+  }
+  if (any(events < 0 | total <= 0 | events > total)) {
+    stop("Grouped counts must satisfy 0 <= events <= total and total > 0.", call. = FALSE)
+  }
+
+  fitted_events <- stats::fitted(fit)
+  fitted_risk <- fitted_events / total
+  bread_information <- crossprod(x, x * fitted_events)
+  score_squares <- events * (1 - fitted_risk)^2 + (total - events) * fitted_risk^2
+  meat <- crossprod(x, x * score_squares)
+  bread_inverse <- solve(bread_information)
+  covariance <- bread_inverse %*% meat %*% bread_inverse
+  dimnames(covariance) <- list(names(beta), names(beta))
+  covariance
+}
